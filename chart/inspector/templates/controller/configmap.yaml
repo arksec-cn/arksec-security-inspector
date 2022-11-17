@@ -1,0 +1,14 @@
+{{- if .Values.controller.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "inspector.controller" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels:
+    app.kubernetes.io/component: inspector-controller
+data:
+  config.json: |-
+    {
+        "key": "value"
+    }
+{{- end -}}

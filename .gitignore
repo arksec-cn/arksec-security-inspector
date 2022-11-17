@@ -1,0 +1,4 @@
+modules/*
+.idea/
+dist/*
+.DS_Store

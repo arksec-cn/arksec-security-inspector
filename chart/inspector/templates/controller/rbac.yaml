@@ -1,0 +1,39 @@
+{{- if .Values.controller.enabled -}}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "inspector.controller" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels:
+    app.kubernetes.io/component: inspector-controller
+imagePullSecrets:
+  - name: {{ include "inspector.defaultImagePullSecret" . }}
+---
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: ClusterRole
+metadata:
+  name: {{ include "inspector.controller" . }}
+  labels:
+    app.kubernetes.io/component: inspector-controller
+rules:
+  - apiGroups: [ "extensions","batch","apps", "" ]
+    resources: [ "pods", "daemonsets","deployments", "jobs","statefulsets","cronjobs" ]
+    verbs: [ "get", "list", "watch" ]
+
+---
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "inspector.controller" . }}
+  labels:
+    app.kubernetes.io/component: inspector-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "inspector.controller" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "inspector.controller" . }}
+    namespace: {{ include "common.names.namespace" . | quote }}
+{{- end -}}

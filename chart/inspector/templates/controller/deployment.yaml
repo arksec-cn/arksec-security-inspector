@@ -1,0 +1,28 @@
+{{- if .Values.controller.enabled -}}
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ include "inspector.controller" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels:
+    app.arksec.io/component: inspector-controller
+spec:
+  replicas: {{ .Values.controller.replicaCount }}
+  selector:
+    matchLabels:
+      app.arksec.io/component: inspector-controller
+  template:
+    metadata:
+      labels:
+        app.arksec.io/component: inspector-controller
+    spec:
+      imagePullSecrets:
+        - name: {{ include "inspector.defaultImagePullSecret" . }}
+      serviceAccountName: {{ include "inspector.controller" . }}
+      containers:
+        - name: controller
+          image: {{ include "inspector.controller.image" . | quote }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          command:
+            - /inspector
+{{- end -}}

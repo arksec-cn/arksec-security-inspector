@@ -1,0 +1,57 @@
+## @section Global parameters
+## Global Docker image parameters
+## Please, note that this will override the image parameters, including dependencies, configured to use the global value
+## Current available global Docker image parameters: imageRegistry, imagePullSecrets and storageClass
+
+## @param global.image.registry Global Docker image registry
+## @param global.image.project Global Docker image registry project
+## @param global.image.tag Global Docker image tag
+## @param global.imagePullSecrets Global Docker registry secret names as an array, you can ceate a new secret or using a existing secret.
+## @param global.storageClass Global StorageClass for Persistent Volume(s)
+##
+global:
+  image:
+    registry: "registry.arksec.cn"
+    project: "virgo/dev/amd64"
+    tag: "latest"
+    ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
+    pullPolicy: "Always"
+  ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  imagePullSecrets: []
+  storageClass: ""
+  enableDefaultResources: true
+
+defaultImagePullSecret:
+  ## @param defaultImagePullSecret.enabled Enable or Disable Default Image Pull Secret
+  ##
+  enabled: true
+  ## @param defaultImagePullSecret.username Username of Registry
+  ## @param defaultImagePullSecret.password Password of Username
+  ## @param defaultImagePullSecret.email Email of Username
+  username: readonly
+  password: Arksec12345
+  email: registry-readonly@arksec.cn
+
+## @section Common parameters
+## @param kubeVersion Force target Kubernetes version (using Helm capabilities if not set)
+##
+kubeVersion: ""
+## @param kubePlatform String to Kubernetes Platform, default "Kubernetes"
+##
+kubePlatform: ""
+
+controller:
+  enabled: true
+  image:
+    registry: ""
+    project: ""
+    repository: inspector
+    tag: ""
+    digest: ""
+    pullPolicy: ""
+    pullSecrets: []
+  replicaCount: 1

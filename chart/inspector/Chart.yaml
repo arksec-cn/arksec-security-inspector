@@ -1,0 +1,18 @@
+name: inspector
+version: 3.0.0
+appVersion: 2.10.1
+apiVersion: v2
+type: application
+annotations:
+  category: Cloud Native Security Platform (CNAPP)
+description: Unleash the full potential of your cloud native transformation and accelerate innovation with the confidence that your cloud native applications are secured from start to finish, at any scale. ArkSec Platform protects your entire stack, on any cloud, across VMs, containers, and serverless.
+home: https://www.arksec.cn
+keywords:
+  - Cloud Native Security Platform
+  - Container Security
+  - Kubernetes Security
+  - Container Vulnerability Scanning
+  - Open Source Container Security 
+maintainers:
+  - email: tech@arksec.cn
+    name: ArkSec Technology
